@@ -1,13 +1,35 @@
-import {ChatType, Group, UnknownSender} from "./contact";
+import {ChatType, Group, GroupMemberProfile, GroupProfile, QQProfile, UnknownSender} from "./contact";
 import {Message, OfflineMessage} from "./message";
 
 export type Event = {
     'new-messages': NewMessagesEvent[]
 }
+
 export type LLAPISupported = {
     LLAPI: {
         on: <T extends keyof Event>(type: T, call: (msg: Event[T]) => void) => void
-        sendMessage: (peer: ChatType,elements: OfflineMessage[]) => Promise<any>
+        sendMessage: (peer: ChatType, elements: OfflineMessage[]) => Promise<any>
+        getAccountInfo: () => Promise<Pick<QQProfile, 'uid' | 'uin'>>,
+        getUserInfo: (uid: string) => Promise<QQProfile>
+        getFriendList: (forced?: boolean) => Promise<QQProfile[]>
+        getGroupsList: (forced?: boolean) => Promise<GroupProfile[]>
+        getGroupMemberList: (groupId: number, num: number) => Promise<GroupMemberCallBack>
+    }
+}
+
+export type GroupMemberCallBack = {
+    errCode: number
+    errMsg: string
+    result: {
+        finish: boolean
+        hasRobot: boolean
+        ids: {
+            [key: string]: {
+                uid: string,
+                index: number
+            };
+        };
+        infos: Map<String,GroupMemberProfile>
     }
 }
 
