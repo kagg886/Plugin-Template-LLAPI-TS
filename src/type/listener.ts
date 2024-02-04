@@ -1,18 +1,18 @@
-import {Group, UnknownSender} from "./contact";
+import {ChatType, Group, UnknownSender} from "./contact";
 import {Message} from "./message";
 
-export type API = {
+export type Event = {
     'new-messages': NewMessagesEvent[]
 }
-
 export type LLAPISupported = {
     LLAPI: {
-        on: <T extends keyof API>(type: T,call: (msg: API[T]) => void) => void
+        on: <T extends keyof Event>(type: T, call: (msg: Event[T]) => void) => void
+
     }
 }
 
 export type NewMessagesEvent = {
-    peer: Group,
+    peer: ChatType,
     sender: UnknownSender,
     elements: Array<Message>
 }

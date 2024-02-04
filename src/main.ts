@@ -5,10 +5,7 @@ import {Message, PlainText} from "./type/message";
 
 module.exports.onBrowserWindowCreated = (window: Window & LLAPISupported) => {
     window.LLAPI.on('new-messages', (abc: NewMessagesEvent[]) => {
-        const a: Array<Message> = abc[0].elements
-        if (a instanceof PlainText) {
-
-        }
+        console.log(abc)
     })
     // window 为 Electron 的 BrowserWindow 实例
 }

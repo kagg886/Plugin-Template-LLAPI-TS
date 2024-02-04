@@ -8,6 +8,10 @@ export type Group = ChatType & {
     chatType: 'group'
 }
 
+export type Friend = ChatType & {
+    chatType: 'friend'
+}
+
 export type UnknownSender = {
     uid: string
     memberName: string
