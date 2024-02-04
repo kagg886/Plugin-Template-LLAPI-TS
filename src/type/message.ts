@@ -53,3 +53,5 @@ export type face = Message & {
 export type UnknownMessageType = Message & {
     type: 'raw'
 }
+
+export type OfflineMessage = Omit<Message, 'raw'>
